@@ -24,7 +24,7 @@ public class SimHashImpl implements SimHash {
         StringTokenizer stringTokens = new StringTokenizer(this.tokens);
         while (stringTokens.hasMoreTokens()) {
             String temp = stringTokens.nextToken();
-            //2、将每一个分词hash为一组固定长度的数列.比如 64bit 的一个整数.
+            //2、将每一个分词hash为一组固定长度的数列
             BigInteger t = this.hash(temp);
             for (int i = 0; i < this.habits; i++) {
                 BigInteger bitmask = new BigInteger("1").shiftLeft(i);
