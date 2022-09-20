@@ -6,16 +6,16 @@ public class FileInput {
 
     public String readString(String FI){
         int len=0;
-        StringBuffer str=new StringBuffer("");
+        StringBuilder str=new StringBuilder();
         File file = new File(FI);
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String line=null;
+            String line;
             while((line=bufferedReader.readLine())!=null){
                 if (len!=0){
-                    str.append("\r\n"+line);
+                    str.append("\r\n").append(line);
                 }else {
                     str.append(line);
                 }
@@ -23,8 +23,6 @@ public class FileInput {
             }
             bufferedReader.close();
             fileInputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

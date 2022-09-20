@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class SimHashImpl implements SimHash {
-    private String tokens;
-    private BigInteger intSimHash;
+    private final String tokens;
+    private final BigInteger intSimHash;
     private String strSimHash;
-    private int habits = 64;
+    private final int habits;
     public SimHashImpl(String tokens, int habits) {
         this.tokens = tokens;
         this.habits = habits;
@@ -39,7 +39,7 @@ public class SimHashImpl implements SimHash {
             }
         }
         BigInteger fingerprint = new BigInteger("0");
-        StringBuffer simHashBuffer = new StringBuffer();
+        StringBuilder simHashBuffer = new StringBuilder();
         for (int i = 0; i < this.habits; i++) {
             // 4、最后对数组进行判断,大于0的记为1,小于等于0的记为0,得到一个 64bit 的数字指纹/签名.
             if (v[i] >= 0) {
@@ -73,7 +73,7 @@ public class SimHashImpl implements SimHash {
             BigInteger mask = new BigInteger("2").pow(this.habits).subtract(
                     new BigInteger("1"));
             for (char item : sourceArray) {
-                BigInteger temp = BigInteger.valueOf((long) item);
+                BigInteger temp = BigInteger.valueOf(item);
                 x = x.multiply(m).xor(temp).and(mask);
             }
             x = x.xor(new BigInteger(String.valueOf(source.length())));
@@ -118,11 +118,10 @@ public class SimHashImpl implements SimHash {
     public List subByDistance(SimHashImpl simHashImpl, int distance){
         // 分成几组来检查
         int numEach = this.habits /(distance+1);
-        List characters = new ArrayList();
+        List<BigInteger> characters = new ArrayList<>();
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
-        int k = 0;
         for( int i = 0; i < this.intSimHash.bitLength(); i++){
             // 当且仅当设置了指定的位时，返回 true
             boolean sr = simHashImpl.intSimHash.testBit(i);

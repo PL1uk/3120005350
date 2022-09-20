@@ -3,7 +3,6 @@ package Test;
 import TC.FileInput;
 import TC.SimHashImpl;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
